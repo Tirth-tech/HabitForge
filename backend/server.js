@@ -34,6 +34,20 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// ── Serve Frontend Static Files in Production ────────────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  const distPath = path.join(__dirname, '../frontend/dist');
+  app.use(express.static(distPath));
+  
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 // ── Error handler ─────────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -93,7 +93,7 @@ export default function Habits() {
           {/* Pending habits */}
           {pending.length > 0 && (
             <div style={{ marginBottom: 32 }}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 1, fontSize: 12 }}>
+              <h2 style={{ fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 1, fontSize: 12 }}>
                 Today's Quests ({pending.length})
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

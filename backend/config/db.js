@@ -1,4 +1,14 @@
 const mongoose = require('mongoose');
+const dns = require('dns');
+
+// Configure custom DNS servers to ensure MongoDB Atlas SRV records resolve properly
+if (dns && typeof dns.setServers === 'function') {
+  try {
+    dns.setServers(['8.8.8.8', '8.8.4.4']);
+  } catch (err) {
+    console.warn("Warning: Could not set custom DNS servers:", err.message);
+  }
+}
 
 const uri = "mongodb+srv://tirthkapuriya324_db_user:Tirth123456@habitforgecluster.4oti140.mongodb.net/?appName=HabitForgeCluster";
 
