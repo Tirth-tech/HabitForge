@@ -35,9 +35,11 @@ app.get('/api/health', (req, res) => {
 });
 
 // ── Serve Frontend Static Files in Production ────────────────────────────────
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  const distPath = path.join(__dirname, '../frontend/dist');
+const path = require('path');
+const fs = require('fs');
+const distPath = path.join(__dirname, '../frontend/dist');
+
+if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
   
   app.get('*', (req, res, next) => {
@@ -46,6 +48,8 @@ if (process.env.NODE_ENV === 'production') {
     }
     res.sendFile(path.join(distPath, 'index.html'));
   });
+} else {
+  console.warn(`⚠️ Warning: Static frontend build folder not found at: ${distPath}`);
 }
 
 // ── Error handler ─────────────────────────────────────────────────────────────
